@@ -1,50 +1,116 @@
-# Welcome to your Expo app 👋
+# 🧘 Habit Tracker
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+Минималистичный трекер привычек на React Native + Expo с системой подписки.
 
-## Get started
+![React Native](https://img.shields.io/badge/React%20Native-0.81-blue?logo=react)
+![Expo](https://img.shields.io/badge/Expo-54-black?logo=expo)
+![License](https://img.shields.io/badge/license-MIT-green)
 
-1. Install dependencies
+## ✨ Возможности
 
-   ```bash
-   npm install
-   ```
+- 📋 **Трекер привычек** — создавайте, редактируйте и отслеживайте ежедневные привычки
+- 🎯 **16 иконок** — выбирайте эмодзи для каждой привычки
+- 💳 **Система подписки** — paywall с месячной и годовой подпиской
+- 🎨 **Современный дизайн** — минималистичный UI с плавными анимациями
+- 💾 **Локальное хранение** — данные сохраняются в AsyncStorage
 
-2. Start the app
+## 📱 Скриншоты
 
-   ```bash
-   npx expo start
-   ```
+| Onboarding | Paywall | Главный экран |
+|:----------:|:-------:|:-------------:|
+| Приветственный экран | Выбор подписки | Трекер привычек |
 
-In the output, you'll find options to open the app in a
+## 🚀 Быстрый старт
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
-
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
-
-## Get a fresh project
-
-When you're ready, run:
+### Установка
 
 ```bash
-npm run reset-project
+# Клонируйте репозиторий
+git clone <repo-url>
+cd Meditation
+
+# Установите зависимости
+npm install
+
+# Запустите проект
+npx expo start
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+### Зависимости
 
-## Learn more
+```bash
+npx expo install @react-native-async-storage/async-storage @react-navigation/native @react-navigation/native-stack react-native-screens react-native-safe-area-context
+```
 
-To learn more about developing your project with Expo, look at the following resources:
+## 📁 Структура проекта
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+```
+src/
+├── components/          # Переиспользуемые компоненты
+│   ├── HabitModal.js   # Модалка создания/редактирования
+│   └── index.js
+│
+├── context/            # Глобальное состояние (Context API)
+│   ├── SubscriptionContext.js
+│   └── index.js
+│
+├── navigation/         # React Navigation
+│   ├── AuthStack.js    # Onboarding → Paywall
+│   ├── MainStack.js    # Home
+│   ├── RootNavigator.js
+│   └── index.js
+│
+└── screens/            # Экраны приложения
+    ├── OnboardingScreen.js
+    ├── PaywallScreen.js
+    ├── HomeScreen.js
+    └── index.js
+```
 
-## Join the community
+## 🎮 Как использовать
 
-Join our community of developers creating universal apps.
+| Действие | Описание |
+|----------|----------|
+| **Тап** на привычку | Отметить как выполненную |
+| **Долгое нажатие** | Редактировать привычку |
+| **Кнопка +** | Создать новую привычку |
+| **Кнопка ✕** | Удалить привычку |
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+## 🔐 Логика подписки
+
+```
+┌─────────────────┐     ┌─────────────────┐
+│   AsyncStorage  │────▶│  isSubscribed?  │
+└─────────────────┘     └────────┬────────┘
+                                 │
+                    ┌────────────┴────────────┐
+                    ▼                         ▼
+              ┌──────────┐             ┌──────────┐
+              │ AuthStack│             │ MainStack│
+              │ (Paywall)│             │  (Home)  │
+              └──────────┘             └──────────┘
+```
+
+- **Не подписан** → показывается `AuthStack` (Onboarding → Paywall)
+- **Подписан** → показывается `MainStack` (Home)
+- Кнопка «Сбросить подписку» для тестирования
+
+## 🛠 Технологии
+
+- **React Native** — кроссплатформенная разработка
+- **Expo** — инструменты и сервисы
+- **React Navigation** — навигация между экранами
+- **AsyncStorage** — локальное хранилище данных
+- **Context API** — управление глобальным состоянием
+
+## 📝 Планы
+
+- [ ] Сохранение привычек в AsyncStorage
+- [ ] Статистика выполнения
+- [ ] Напоминания (Push Notifications)
+- [ ] Темная тема
+- [ ] Интеграция с реальными платежами (RevenueCat)
+
+## 📄 Лицензия
+
+MIT © 2024
